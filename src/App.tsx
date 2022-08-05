@@ -1,11 +1,20 @@
 import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import Layout from './pages/Layout';
+import TodoListPage from './pages/TodoListPage';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      Hello
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="todos" element={<TodoListPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
