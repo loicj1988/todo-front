@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
-import { useAuth0, User } from '@auth0/auth0-react';
+import React from 'react';
+import { useAuth0, User, withAuthenticationRequired } from '@auth0/auth0-react';
+import Loading from './Loading';
 
-export default function ProfilePage() {
-  const { user, isAuthenticated, isLoading } = useAuth0<User>();
+const ProfilePage = () => {
+  const { user } = useAuth0<User>();
+  // const { user, isAuthenticated, isLoading } = useAuth0<User>();
 
-  useEffect(() => {}, [isAuthenticated]);
+  // if (isLoading) {
+  //   return <div>Loading ...</div>;
+  // }
 
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
-
-  if (!isAuthenticated) {
-    return <div>Please log in ...</div>;
-  }
+  // if (!isAuthenticated) {
+  //   return <div>Please log in ...</div>;
+  // }
 
   if (!user) {
     return <div>Something went wrong, please try again ...</div>;
@@ -27,4 +27,8 @@ export default function ProfilePage() {
       <p>{user.email}</p>
     </div>
   );
-}
+};
+
+export default withAuthenticationRequired(ProfilePage, {
+  onRedirecting: () => <Loading />
+});

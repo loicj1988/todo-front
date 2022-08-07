@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import LoginButton from '../components/LoginButton';
 import LogoutButton from '../components/LogoutButton';
+import SignupButton from '../components/SignupButton';
 
 export default function Layout() {
   return (
@@ -20,6 +21,7 @@ export default function Layout() {
       </ul>
       <LoginButton />
       <LogoutButton />
+      <SignupButton />
       <hr />
       <Outlet />
     </div>
