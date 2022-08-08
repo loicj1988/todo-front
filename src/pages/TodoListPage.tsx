@@ -7,7 +7,10 @@ export default function TodoListPage() {
 
   useEffect(() => {
     const init = async () => {
-      setTodos(await fetchTodos());
+      const result = await fetchTodos();
+      if (result) {
+        setTodos(result);
+      }
     };
 
     init();
