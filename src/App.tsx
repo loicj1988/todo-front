@@ -7,33 +7,27 @@ import HomePage from './pages/HomePage';
 import Layout from './pages/Layout';
 import ProfilePage from './pages/ProfilePage';
 import TodoListPage from './pages/TodoListPage';
+import TodoRoutes from './TodoRoutes';
 
 const App = () => {
   const { isLoading } = useAuth0();
+
   const domain: string = process.env.REACT_APP_AUTH0_DOMAIN || '';
   const clientId: string = process.env.REACT_APP_AUTH0_CLIENT_ID || '';
+  const audience: string = process.env.REACT_APP_AUTH0_AUDIENCE || '';
+  const scope: string = process.env.REACT_APP_AUTH0_SCOPE || '';
+  const auth0Params = {
+    domain,
+    clientId,
+    audience,
+    scope,
+    redirectUri: window.location.origin
+  };
 
   return (
     <BrowserRouter>
-      <Auth0Provider
-        domain={domain}
-        clientId={clientId}
-        redirectUri={window.location.origin}
-      >
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route path="todos" element={<TodoListPage />} />
-            <Route
-              path="profile"
-              element={
-                <ProtectedRoute>
-                  <ProfilePage />
-                </ProtectedRoute>
-              }
-            />
-          </Route>
-        </Routes>
+      <Auth0Provider {...auth0Params}>
+        <TodoRoutes></TodoRoutes>
       </Auth0Provider>
     </BrowserRouter>
   );

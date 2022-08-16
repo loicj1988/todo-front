@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, Col, ListGroup, Row, Table } from 'react-bootstrap';
 import Todo, { TodoProps } from './Todo';
 
 export interface TodoListProps {
@@ -7,15 +8,19 @@ export interface TodoListProps {
 
 const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   return (
-    <div>
-      <ul>
+    <Table striped bordered hover>
+      <thead>
+        <tr>
+          <th style={{ width: '100%' }}>Title</th>
+          <th>Completed</th>
+        </tr>
+      </thead>
+      <tbody>
         {todos.map((todo, index) => (
-          <li key={index}>
-            <Todo {...todo} />
-          </li>
+          <Todo key={index} {...todo} />
         ))}
-      </ul>
-    </div>
+      </tbody>
+    </Table>
   );
 };
 
